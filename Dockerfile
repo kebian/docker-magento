@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y php5-fpm php5-mysql php5-mcrypt php5-cu
 
 # Set up web server.
 ADD nginx-default-server.conf /etc/nginx/sites-available/default
-ADD domain.crt /etc/nginx/conf.d/
-ADD domain.key /etc/nginx/conf.d/
+ADD domain.crt /etc/nginx/ssl/
+ADD domain.key /etc/nginx/ssl/
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Install Magento
@@ -42,5 +42,7 @@ ADD supervisor_conf/* /etc/supervisor/conf.d/
 
 EXPOSE 80
 EXPOSE 443
+
+VOLUME ["/var/www/", "/etc/nginx/ssl/"]
 
 ENTRYPOINT ["/usr/bin/supervisord"]

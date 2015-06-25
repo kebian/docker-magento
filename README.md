@@ -8,5 +8,5 @@
 * nginx
 * php5-fpm
 * cron configured
-* Web files in /var/www
-* domain.crt and domain.key in /etc/nginx/conf.d for ssl.
+* domain.crt and domain.key in /etc/nginx/ssl/ volume
+* web site in /var/www/ volume
