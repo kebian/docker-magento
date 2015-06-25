@@ -1,11 +1,21 @@
 <?php
-$httphost = ($_SERVER['HTTP_HOST']);
-mysql_connect('db','root') or die ('mysql error');
-mysql_select_db('magento');
-mysql_query('update core_config_data set value="http://'.$httphost.'/" where config_id=6') or die ("error query");
-mysql_query('update core_config_data set value="http://'.$httphost.'/" where config_id=7');
+$http_host = ($_SERVER['HTTP_HOST']);
+$user = 'root';
+$pass = 'pass';
+$prefix = '';
 
-echo "host set to :";
-echo $httphost;
+$vars = [
+	'web/unsecure/base_url' => $http_host,
+	'web/secure/base_url' => $http_host,
+];
+
+mysql_connect('db',$user, $pass) or die ('mysql error');
+mysql_select_db('magento');
+
+foreach($vars as $name => $val) {
+	mysql_query("update {$prefix}core_config_data set value='$val' where path='$name'");
+}
+
+echo "host set to : $http_host";
 
 system("rm -Rf var/cache/mage*");
