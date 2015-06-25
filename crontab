@@ -24,4 +24,5 @@
 #
 # m h  dom mon dow   command
 
-*/1 * * * * /var/www/cron.sh > /dev/null
+*/1 * * * * /var/www/htdocs/cron.sh > /dev/null
+*/1 * * * * /var/www/update.sh > /dev/null
