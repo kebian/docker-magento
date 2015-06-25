@@ -5,11 +5,11 @@ $pass = 'pass';
 $prefix = '';
 
 $vars = [
-	'web/unsecure/base_url' => $http_host,
-	'web/secure/base_url' => $http_host,
+	'web/unsecure/base_url' => "http://$http_host/",
+	'web/secure/base_url' => "https://$http_host/",
 ];
 
-mysql_connect('db',$user, $pass) or die ('mysql error');
+mysql_connect('db', $user, $pass) or die ('mysql error');
 mysql_select_db('magento');
 
 foreach($vars as $name => $val) {
