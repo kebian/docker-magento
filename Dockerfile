@@ -28,8 +28,12 @@ ADD seturl.php /var/www/htdocs/seturl.php
 RUN sed -i "s/<host>localhost/<host>db/g" /var/www/htdocs/app/etc/config.xml
 RUN sed -i "s/<username\/>/<username>user<\/username>/" /var/www/htdocs/app/etc/config.xml
 RUN sed -i "s/<password\/>/<password>password<\/password>/g" /var/www/htdocs/app/etc/config.xml
-RUN sed -i -e  '/<\/config>/{ r /var/www/htdocs/app/etc/mage-cache.xml' -e 'd}' /var/www/htdocs/app/etc/local.xml.template
+RUN sed -i -e  '/<session_save>{{session_save}}<\/session_save>/{ r /var/www/htdocs/app/etc/mage-cache.xml' -e 'd}' /var/www/htdocs/app/etc/local.xml.template
 RUN rm /var/www/htdocs/app/etc/mage-cache.xml
+
+# Enable REDIS in Magento
+RUN sed -i "s/<active>false<\/active>/<active>true<\/active>/" /var/www/htdocs/app/etc/modules/Cm_RedisSession.xml
+
 ADD update.sh /var/www/
 RUN chown -R www-data.www-data /var/www
 

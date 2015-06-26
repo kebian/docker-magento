@@ -3,7 +3,7 @@
 ## Dockerfile for Magento Installation
 
 * Links with a mysql container named 'db'
-* Links with a memcached container named 'cache'
+* Links with a REDIS container named 'cache'
 * Based on Debian Jessie
 * nginx
 * php5-fpm
