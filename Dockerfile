@@ -5,7 +5,7 @@ MAINTAINER robs@codexsoftware.co.uk
 RUN usermod -u 1000 www-data
 RUN groupmod -g 1000 www-data
 
-RUN apt-get update && apt-get install -y php5-fpm php5-mysql php5-mcrypt php5-curl php5-memcached php5-gd nginx supervisor cron git sudo
+RUN apt-get update && apt-get install -y php5-fpm php5-mysql php5-mcrypt php5-curl php5-memcached php5-gd nginx supervisor cron git sudo ssmtp
 
 # Set up web server.
 ADD nginx-default-server.conf /etc/nginx/sites-available/default
