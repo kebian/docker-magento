@@ -12,6 +12,7 @@ ADD nginx-default-server.conf /etc/nginx/sites-available/default
 RUN rm -rf /var/www
 RUN mkdir -p /var/www
 RUN mkdir -p /var/www/ssl
+RUN mkdir -p /var/www/etc
 ADD domain.crt /var/www/ssl/
 ADD domain.key /var/www/ssl/
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
