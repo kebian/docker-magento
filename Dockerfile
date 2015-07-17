@@ -45,7 +45,7 @@ RUN chmod 0600 /var/spool/cron/crontabs/www-data
 
 
 # Configure supervisord
-ADD supervisord.conf /etc/
+ADD supervisord.conf /etc/supervisor/
 ADD supervisor_conf/* /etc/supervisor/conf.d/
 
 EXPOSE 80
@@ -53,4 +53,5 @@ EXPOSE 443
 
 VOLUME ["/var/www/"]
 
-ENTRYPOINT ["/usr/bin/supervisord"]
+ADD docker-entrypoint.sh /root/docker-entrypoint.sh
+ENTRYPOINT ["/root/docker-entrypoint.sh"]
