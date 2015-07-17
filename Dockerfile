@@ -2,26 +2,20 @@ FROM debian:jessie
 MAINTAINER robs@codexsoftware.co.uk
 
 # Using this UID / GID allows local and live file modification of web site
-RUN usermod -u 1000 www-data
-RUN groupmod -g 1000 www-data
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 RUN apt-get update && apt-get install -y php5-fpm php5-mysql php5-mcrypt php5-curl php5-memcached php5-gd nginx supervisor cron git sudo ssmtp
 
 # Set up web server.
 ADD nginx-default-server.conf /etc/nginx/sites-available/default
-RUN rm -rf /var/www
-RUN mkdir -p /var/www
-RUN mkdir -p /var/www/ssl
-RUN mkdir -p /var/www/etc
-ADD domain.crt /var/www/ssl/
-ADD domain.key /var/www/ssl/
+RUN rm -rf /var/www && mkdir -p /var/www/ssl && mkdir -p /var/www/etc
+ADD certs/* /var/www/ssl/
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 
 # Install Magento
 ADD http://www.magentocommerce.com/downloads/assets/1.9.1.1/magento-1.9.1.1.tar.gz /tmp/
-RUN cd /tmp && tar -zxvf magento-1.9.1.1.tar.gz
-RUN mv /tmp/magento /var/www/htdocs
+RUN cd /tmp && tar -zxvf magento-1.9.1.1.tar.gz && mv /tmp/magento /var/www/htdocs
 
 # Configure Magento
 ADD mage-cache.xml /var/www/htdocs/app/etc/mage-cache.xml
@@ -40,8 +34,7 @@ RUN chown -R www-data.www-data /var/www
 
 # Set up cron
 ADD crontab /var/spool/cron/crontabs/www-data
-RUN chown www-data.crontab /var/spool/cron/crontabs/www-data
-RUN chmod 0600 /var/spool/cron/crontabs/www-data
+RUN chown www-data.crontab /var/spool/cron/crontabs/www-data && chmod 0600 /var/spool/cron/crontabs/www-data
 
 
 # Configure supervisord
