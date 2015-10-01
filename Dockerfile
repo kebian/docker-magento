@@ -26,6 +26,8 @@ RUN rm -rf /var/www && mkdir -p /var/www/ssl && mkdir -p /var/www/etc
 ADD certs/* /var/www/ssl/
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
+# Configure PHP
+RUN sed -i "s/memory_limit = 128M/memory_limit = 256M/" /etc/php5/fpm/php.ini
 
 # Install Magento
 RUN curl -SL http://www.magentocommerce.com/downloads/assets/1.9.1.1/magento-1.9.1.1.tar.gz \
