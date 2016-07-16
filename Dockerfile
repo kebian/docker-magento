@@ -30,9 +30,9 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i "s/memory_limit = 128M/memory_limit = 256M/" /etc/php5/fpm/php.ini
 
 # Install Magento
-RUN curl -SL http://www.magentocommerce.com/downloads/assets/1.9.1.1/magento-1.9.1.1.tar.gz \
-	| tar xzvC /tmp/ \
-	&& mv /tmp/magento /var/www/htdocs
+ADD magento-1.9.2.4-2016-02-23-06-04-07.tar.gz /tmp/magento.tar.gz
+RUN tar xzvC /tmp/magento.tar.gz /tmp/ \
+    && mv /tmp/magento /var/www/htdocs
 
 # Configure Magento
 ADD mage-cache.xml /var/www/htdocs/app/etc/mage-cache.xml
