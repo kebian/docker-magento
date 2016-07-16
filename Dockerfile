@@ -31,7 +31,7 @@ RUN sed -i "s/memory_limit = 128M/memory_limit = 256M/" /etc/php5/fpm/php.ini
 
 # Install Magento
 ADD magento-1.9.2.4-2016-02-23-06-04-07.tar.gz /tmp/magento.tar.gz
-RUN tar xzvC /tmp/magento.tar.gz /tmp/ \
+RUN tar xzvfC /tmp/magento.tar.gz /tmp/ \
     && mv /tmp/magento /var/www/htdocs
 
 # Configure Magento
