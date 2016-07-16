@@ -28,6 +28,7 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Configure PHP
 RUN sed -i "s/memory_limit = 128M/memory_limit = 256M/" /etc/php5/fpm/php.ini
+RUN sed -i "s/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/" /etc/php5/fpm/php.ini
 
 # Install Magento
 COPY magento-1.9.2.4-2016-02-23-06-04-07.tar.gz /tmp/magento.tar.gz
